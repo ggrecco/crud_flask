@@ -1,6 +1,8 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, BooleanField, SubmitField, SelectField
-from wtforms.validators import DataRequired
+from wtforms.validators import ValidationError, DataRequired, Email, EqualTo
+from app.models import User
+
 
 class LoginForm(FlaskForm):
     username = StringField('Usuário', validators=[DataRequired()],
@@ -13,3 +15,22 @@ class LoginForm(FlaskForm):
     #                                             ('escolha 2', 'escolha 2'),
     #                                             ('escolha 3', 'escolha 3')],
     #                        render_kw={"class": "teste"})
+
+
+class RegistrationForm(FlaskForm):
+    username = StringField('Nome de usuário', validators=[DataRequired()])
+    email = StringField('Email', validators=[DataRequired(), Email()])
+    password = PasswordField('Senha', validators=[DataRequired()])
+    password2 = PasswordField(
+        'Repita a senha', validators=[DataRequired(), EqualTo('password')])
+    submit = SubmitField('Registrar')
+
+    def validate_username(self, username):
+        user = User.query.filter_by(username=username.data).first()
+        if user is not None:
+            raise ValidationError('Favor utilizar outro nome de usuário.')
+
+    def validate_email(self, email):
+        user = User.query.filter_by(email=email.data).first()
+        if user is not None:
+            raise ValidationError('Favor utilizar outro endereço de e-mail.')
