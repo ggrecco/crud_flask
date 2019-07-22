@@ -63,5 +63,5 @@ class EditProfileForm(FlaskForm):
                     raise ValidationError('Favor utilizar outro e-mail.')
 
 
-class DelForm(FlaskForm):
+class DeleteForm(FlaskForm):
     submit = SubmitField('Excluir')

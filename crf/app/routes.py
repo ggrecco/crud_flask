@@ -1,7 +1,7 @@
 from flask import render_template, flash, redirect, url_for, request
 from flask_login import current_user, login_user, logout_user, login_required
 from app import app, db
-from app.forms import LoginForm, RegistrationForm, EditProfileForm, DelForm
+from app.forms import LoginForm, RegistrationForm, EditProfileForm, DeleteForm
 from app.models import User
 from werkzeug.urls import url_parse
 from datetime import datetime
@@ -88,19 +88,18 @@ def edit_profile():
                            form=form)
 
 
-@app.route("/del_user", methods=['GET', 'POST'])
+@app.route("/delete_myuser/<myuser>", methods=['GET', 'POST'])
 @login_required
-def del_user():
-    form = DeletarForm()
+def delete_myuser(myuser):
+    form = DeleteForm()
     if form.validate_on_submit():
         user_id = current_user.id
         u = User.query.filter_by(id=user_id).first()
-        print(u)
-        # db.session.delete(u)
-        # db.session.commit()
+        db.session.delete(u)
+        db.session.commit()
         return redirect(url_for('logout'))
-    return render_template('del_user.html', title='Excluir perfil',
-                           form=form)
+    return render_template('delete_myuser.html', title='Excluir perfil',
+                           form=form, user=myuser)
 
 
 @app.route('/admin', methods=['GET', 'POST'])
