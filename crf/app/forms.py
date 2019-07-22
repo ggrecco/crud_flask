@@ -41,6 +41,7 @@ class EditProfileForm(FlaskForm):
     email = StringField('E-mail', validators=[DataRequired()])
     submit = SubmitField('Submit')
 
+    # verifica usuario e e-mail no banco de dados
     def __init__(self, original_username, *args, **kwargs):
         super(EditProfileForm, self).__init__(*args, **kwargs)
         self.original_username = original_username
