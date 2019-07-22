@@ -13,7 +13,7 @@ db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 login = LoginManager(app)
 login.login_view = 'login'
-login.login_message = _l('Por favor faça login para acessar esta página.')
+login.login_message = _l('Please login to access this page.')
 moment = Moment(app)
 babel = Babel(app)
 

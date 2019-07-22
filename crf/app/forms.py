@@ -39,25 +39,29 @@ class RegistrationForm(FlaskForm):
 class EditProfileForm(FlaskForm):
     username = StringField('Usuario', validators=[DataRequired()])
     email = StringField('E-mail', validators=[DataRequired()])
-    submit = SubmitField('Submit')
+    submit = SubmitField('Enviar')
 
     # verifica usuario e e-mail no banco de dados
     def __init__(self, original_username, *args, **kwargs):
         super(EditProfileForm, self).__init__(*args, **kwargs)
         self.original_username = original_username
 
-    def validate_username(self, username):
-        if username.data != self.original_username:
-            user = User.query.filter_by(username=self.username.data).first()
-            if user is not None:
-                raise ValidationError('Favor utilizar outro nome de usuario.')
+        def validate_username(self, username):
+            if username.data != self.original_username:
+                user = User.query.filter_by(username=self.username.data).first()
+                if user is not None:
+                    raise ValidationError('Favor utilizar outro nome de usuario.')
 
     def __init__(self, original_email, *args, **kwargs):
         super(EditProfileForm, self).__init__(*args, **kwargs)
         self.original_email = original_email
 
-    def validate_email(self, email):
-        if email.data != self.original_email:
-            email = User.query.filter_by(email=self.email.data).first()
-            if email is not None:
-                raise ValidationError('Favor utilizar outro e-mail.')
+        def validate_email(self, email):
+            if email.data != self.original_email:
+                email = User.query.filter_by(email=self.email.data).first()
+                if email is not None:
+                    raise ValidationError('Favor utilizar outro e-mail.')
+
+
+class DelForm(FlaskForm):
+    submit = SubmitField('Excluir')

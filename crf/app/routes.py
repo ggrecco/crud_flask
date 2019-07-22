@@ -1,7 +1,7 @@
 from flask import render_template, flash, redirect, url_for, request
 from flask_login import current_user, login_user, logout_user, login_required
 from app import app, db
-from app.forms import LoginForm, RegistrationForm, EditProfileForm  
+from app.forms import LoginForm, RegistrationForm, EditProfileForm, DelForm
 from app.models import User
 from werkzeug.urls import url_parse
 from datetime import datetime
@@ -33,7 +33,7 @@ def login():
     if form.validate_on_submit():
         user = User.query.filter_by(username=form.username.data).first()
         if user is None or not user.check_password(form.password.data):
-            flash(_('Usuário ou senha inválido'))
+            flash(_('Invalid user or password'))
             return redirect(url_for('login'))
         login_user(user, remember=form.remember_me.data)
         next_page = request.args.get('next')
@@ -88,9 +88,9 @@ def edit_profile():
                            form=form)
 
 
-@app.route("/deletar", methods=['GET', 'POST'])
+@app.route("/del_user", methods=['GET', 'POST'])
 @login_required
-def deletar():
+def del_user():
     form = DeletarForm()
     if form.validate_on_submit():
         user_id = current_user.id
@@ -99,7 +99,7 @@ def deletar():
         # db.session.delete(u)
         # db.session.commit()
         return redirect(url_for('logout'))
-    return render_template('deletar.html', title='Excluir perfil',
+    return render_template('del_user.html', title='Excluir perfil',
                            form=form)
 
 

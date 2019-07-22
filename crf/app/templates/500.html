@@ -1,6 +1,6 @@
 {% extends "index.html" %}
 
 {% block content %}
-    <h1>Algo de ERRADO não está CERTO!</h1>
-    <p><a href="{{ url_for('index') }}">voltar</a></p>
+    <h1>{{_('An unexpected error has occurred')}}</h1>
+    <p><a href="{{ url_for('index') }}">{{_('Back')}}</a></p>
 {% endblock %}
