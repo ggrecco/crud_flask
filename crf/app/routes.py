@@ -104,5 +104,5 @@ def delete_myuser(myuser):
 
 @app.route('/admin', methods=['GET', 'POST'])
 @login_required
-def adminitrador():
-    return redirect(url_for('index'))
+def admin():
+    return redirect(url_for('edit_profile'))
