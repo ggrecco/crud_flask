@@ -7,6 +7,7 @@ from werkzeug.urls import url_parse
 from datetime import datetime
 from flask import g
 from flask_babel import get_locale, _
+import unidecode
 
 
 @app.before_request
@@ -76,7 +77,7 @@ def user(username):
 def edit_profile():
     form = EditProfileForm(current_user.username)
     if form.validate_on_submit():
-        current_user.username = form.username.data
+        current_user.username = unidecode.unidecode(form.username.data)
         current_user.email = form.email.data
         db.session.commit()
         flash('Alterações realizadas com sucesso.')
