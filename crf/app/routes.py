@@ -5,6 +5,16 @@ from app.forms import LoginForm, RegistrationForm, EditProfileForm
 from app.models import User
 from werkzeug.urls import url_parse
 from datetime import datetime
+from flask import g
+from flask_babel import get_locale, _
+
+
+@app.before_request
+def before_request():
+    if current_user.is_authenticated:
+        current_user.last_seen = datetime.utcnow()
+        db.session.commit()
+    g.locale = str(get_locale())
 
 
 @app.route('/')
@@ -23,7 +33,7 @@ def login():
     if form.validate_on_submit():
         user = User.query.filter_by(username=form.username.data).first()
         if user is None or not user.check_password(form.password.data):
-            flash('Invalid username or password')
+            flash(_('Usuário ou senha inválido'))
             return redirect(url_for('login'))
         login_user(user, remember=form.remember_me.data)
         next_page = request.args.get('next')
@@ -76,3 +86,24 @@ def edit_profile():
         form.email.data = current_user.email
     return render_template('edit_profile.html', title='Edit Profile',
                            form=form)
+
+
+@app.route("/deletar", methods=['GET', 'POST'])
+@login_required
+def deletar():
+    form = DeletarForm()
+    if form.validate_on_submit():
+        user_id = current_user.id
+        u = User.query.filter_by(id=user_id).first()
+        print(u)
+        # db.session.delete(u)
+        # db.session.commit()
+        return redirect(url_for('logout'))
+    return render_template('deletar.html', title='Excluir perfil',
+                           form=form)
+
+
+@app.route('/admin', methods=['GET', 'POST'])
+@login_required
+def adminitrador():
+    return redirect(url_for('index'))

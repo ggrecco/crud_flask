@@ -4,6 +4,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_login import LoginManager
 from flask_moment import Moment
+from flask_babel import Babel, lazy_gettext as _l
 
 
 app = Flask(__name__)
@@ -12,6 +13,13 @@ db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 login = LoginManager(app)
 login.login_view = 'login'
+login.login_message = _l('Por favor faça login para acessar esta página.')
 moment = Moment(app)
+babel = Babel(app)
 
 from app import routes, models, errors
+
+
+@babel.localeselector
+def get_locale():
+    return 'pt'
