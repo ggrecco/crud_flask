@@ -17,6 +17,7 @@ login.login_message = _l('Please login to access this page.')
 moment = Moment(app)
 babel = Babel(app)
 
+
 from app import routes, models, errors
 
 

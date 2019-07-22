@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2019-07-22 13:51-0300\n"
-"PO-Revision-Date: 2019-07-22 13:56-0300\n"
+"POT-Creation-Date: 2019-07-22 14:51-0300\n"
+"PO-Revision-Date: 2019-07-22 14:53-0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: pt\n"
 "Language-Team: pt <LL@li.org>\n"
@@ -21,18 +21,6 @@ msgstr ""
 #: app/__init__.py:16
 msgid "Please login to access this page."
 msgstr "Por favor digite seu usuário e senha para acessar esta página."
-
-#: app/forms.py:32 app/forms.py:54
-msgid "Please use another username."
-msgstr "Por favor use outro nome de usuário"
-
-#: app/forms.py:37 app/forms.py:64
-msgid "Please use another email."
-msgstr "Por favor use outro email."
-
-#: app/forms.py:43
-msgid "Submit"
-msgstr "Enviar"
 
 #: app/routes.py:36
 msgid "Invalid user or password"
@@ -70,13 +58,21 @@ msgstr "Entrar"
 msgid "Logout"
 msgstr "Sair"
 
+#: app/templates/login.html:25
+msgid "New User?"
+msgstr "Novo usuário?"
+
+#: app/templates/login.html:25
+msgid "Click to Register!"
+msgstr "Clique para se registrar!"
+
 #: app/templates/register.html:4
 msgid "Registration"
-msgstr "Registro"
+msgstr "Cadastro"
 
 #: app/templates/user.html:4
 msgid "User"
-msgstr "Usuário"
+msgstr "Registro"
 
 #: app/templates/user.html:8
 msgid "Last acess"
