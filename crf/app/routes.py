@@ -33,7 +33,7 @@ def login():
     form = LoginForm()
     if form.validate_on_submit():
         user = User.query.filter_by(username=form.username.data).first()
-        if user is None or not user.check_password(form.password.data):
+        if user is None or not user.check_password(form.password.data) or user.status != 'ativo':
             flash(_('Invalid user or password'))
             return redirect(url_for('login'))
         login_user(user, remember=form.remember_me.data)
@@ -92,12 +92,22 @@ def edit_profile():
 @app.route("/delete_myuser/<myuser>", methods=['GET', 'POST'])
 @login_required
 def delete_myuser(myuser):
+    print(current_user.permissions)
+    print(myuser)
     form = DeleteForm()
-    if form.validate_on_submit():
-        user_id = current_user.id
+    if form.validate_on_submit() and current_user.permissions == 'admin':
+        print('sou admin')
+        u = User.query.filter_by(username=myuser).first()
+        db.session.delete(u)
+        db.session.commit()
+        flash('Usuário excluido com sucesso.')
+        return redirect(url_for('index'))
+    elif form.validate_on_submit() and current_user.permissions != 'admin':
+        user_id = int(current_user.id)
         u = User.query.filter_by(id=user_id).first()
         db.session.delete(u)
         db.session.commit()
+        flash('Usuário excluido com sucesso.')
         return redirect(url_for('logout'))
     return render_template('delete_myuser.html', title='Excluir perfil',
                            form=form, user=myuser)
