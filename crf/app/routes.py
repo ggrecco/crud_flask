@@ -107,7 +107,8 @@ def delete_myuser(myuser):
 @login_required
 def admin():
     u = int(current_user.id)
-    if u != 1:
+    user = User.query.filter_by(id=u)
+    if user[0].permissions != 'admin':
         return redirect(url_for('index'))
     user = User.query.all()
     return render_template('list_users.html', title='Usuarios', 
