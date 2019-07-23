@@ -1,0 +1,23 @@
+{% extends "index.html" %}
+{% block content %}
+<div>
+    <table>
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Senha</th>
+                <th>Último Acesso</th>
+            </tr>
+        </thead>
+    <tbody>
+        {% for u in users %}
+        <tr>
+            <td>{{u.username}}</td>
+            <td>{{u.email}}</td>
+            <td>{{ moment(u.last_seen).format('LL') }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+    </table>
+</div>
+{% endblock %}

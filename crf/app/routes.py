@@ -106,4 +106,9 @@ def delete_myuser(myuser):
 @app.route('/admin', methods=['GET', 'POST'])
 @login_required
 def admin():
-    return redirect(url_for('edit_profile'))
+    u = int(current_user.id)
+    if u != 1:
+        return redirect(url_for('index'))
+    user = User.query.all()
+    return render_template('list_users.html', title='Usuarios', 
+                            users=user)
