@@ -92,8 +92,6 @@ def edit_profile():
 @app.route("/delete_myuser/<myuser>", methods=['GET', 'POST'])
 @login_required
 def delete_myuser(myuser):
-    print(current_user.permissions)
-    print(myuser)
     form = DeleteForm()
     if form.validate_on_submit() and current_user.permissions == 'admin':
         print('sou admin')
@@ -113,7 +111,7 @@ def delete_myuser(myuser):
                            form=form, user=myuser)
 
 
-@app.route('/admin', methods=['GET', 'POST'])
+@app.route("/admin", methods=['GET', 'POST'])
 @login_required
 def admin():
     u = int(current_user.id)
@@ -123,3 +121,14 @@ def admin():
     user = User.query.all()
     return render_template('list_users.html', title='Usuarios', 
                             users=user)
+
+
+@app.route("/bloq/<user>/<status>", methods=['GET', 'POST'])
+@login_required
+def bloq(user, status):
+    u = User.query.filter_by(username=user).first()
+    adm = User.query.filter_by(username=current_user.username)
+    if adm[0].permissions == 'admin':
+        u.status = status
+        db.session.commit()
+    return redirect(url_for('admin'))
