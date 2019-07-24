@@ -56,7 +56,8 @@ def register():
         return redirect(url_for('index'))
     form = RegistrationForm()
     if form.validate_on_submit():
-        user = User(username=form.username.data, email=form.email.data, permissions='ler')
+        user = User(username=form.username.data, email=form.email.data,
+                    permissions='ler', status='ativo')
         user.set_password(form.password.data)
         db.session.add(user)
         db.session.commit()
@@ -75,7 +76,7 @@ def user(username):
 @app.route('/edit_profile', methods=['GET', 'POST'])
 @login_required
 def edit_profile():
-    form = EditProfileForm(current_user.username)
+    form = EditProfileForm(current_user.username, current_user.email)
     if form.validate_on_submit():
         current_user.username = unidecode.unidecode(form.username.data)
         current_user.email = form.email.data

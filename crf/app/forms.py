@@ -6,11 +6,12 @@ from app.models import User
 
 class LoginForm(FlaskForm):
     username = StringField('Usuário', validators=[DataRequired()],
-                            render_kw={"placeholder" : "Nome de Usuário"})
+                           render_kw={"placeholder" : "Nome de Usuário"})
     password = PasswordField('Senha', validators=[DataRequired()],
-                            render_kw={"placeholder" : "Senha"})
+                             render_kw={"placeholder" : "Senha"})
     remember_me = BooleanField('Lembrar')
-    submit = SubmitField('Entrar', render_kw={"class": "testandoCLASS", "id": "tetandoID"})
+    submit = SubmitField('Entrar', render_kw={"class": "testandoCLASS",
+                                              "id": "tetandoID"})
     # escolhas = SelectField('Escolha', choices=[('escolha 1', 'escolha 1'),
     #                                             ('escolha 2', 'escolha 2'),
     #                                             ('escolha 3', 'escolha 3')],
@@ -21,8 +22,9 @@ class RegistrationForm(FlaskForm):
     username = StringField('Nome de usuário', validators=[DataRequired()])
     email = StringField('Email', validators=[DataRequired(), Email()])
     password = PasswordField('Senha', validators=[DataRequired()])
-    password2 = PasswordField(
-        'Repita a senha', validators=[DataRequired(), EqualTo('password')])
+    password2 = PasswordField('Repita a senha', 
+                              validators=[DataRequired(),
+                                          EqualTo('password')])
     submit = SubmitField('Registrar')
 
     def validate_username(self, username):
@@ -42,19 +44,16 @@ class EditProfileForm(FlaskForm):
     submit = SubmitField('Enviar')
 
     # verifica usuario e e-mail no banco de dados
-    def __init__(self, original_username, *args, **kwargs):
+    def __init__(self, original_username, original_email, *args, **kwargs):
         super(EditProfileForm, self).__init__(*args, **kwargs)
         self.original_username = original_username
+        self.original_email = original_email
 
         def validate_username(self, username):
             if username.data != self.original_username:
                 user = User.query.filter_by(username=self.username.data).first()
                 if user is not None:
                     raise ValidationError('Favor utilizar outro nome de usuario.')
-
-    def __init__(self, original_email, *args, **kwargs):
-        super(EditProfileForm, self).__init__(*args, **kwargs)
-        self.original_email = original_email
 
         def validate_email(self, email):
             if email.data != self.original_email:
