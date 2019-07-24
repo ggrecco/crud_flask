@@ -1,0 +1,34 @@
+{% extends "index.html" %}
+{% block content %}
+<div>
+    <h2>Editando {{user.username}}</h2>
+    <form action="" method="post" novalidate>
+        {{ form.csrf_token }}
+        {{ form.hidden_tag() }}
+        <p>
+            {{form.username.label()}}
+            {{form.username()}}
+            {% for error in form.username.errors %}
+            <span style="color: red;">{{[erro]}}</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{form.email.label()}}
+            {{form.email()}}
+            {% for error in form.email.errors %}
+            <span style="color: red;">{{[erro]}}</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{form.status.label()}}
+            {{form.status()}}
+        </p>
+        <p>
+            {{form.permis.label()}}
+            {{form.permis()}}
+        </p>
+        {{form.submit()}}
+    </form>
+
+</div>
+{% endblock %}

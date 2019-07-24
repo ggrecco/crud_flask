@@ -1,7 +1,7 @@
 from flask import render_template, flash, redirect, url_for, request
 from flask_login import current_user, login_user, logout_user, login_required
 from app import app, db
-from app.forms import LoginForm, RegistrationForm, EditProfileForm, DeleteForm
+from app.forms import LoginForm, RegistrationForm, EditProfileForm, DeleteForm, EditUserForm
 from app.models import User
 from werkzeug.urls import url_parse
 from datetime import datetime
@@ -123,13 +123,34 @@ def admin():
     return render_template('list_users.html', title='Usuarios', 
                             users=user)
 
+# caso opção esteja na aba ADMINISTRAÇÃO
+# @app.route("/bloq/<user>/<status>", methods=['GET', 'POST'])
+# @login_required
+# def bloq(user, status):
+#     u = User.query.filter_by(username=user).first()
+#     adm = User.query.filter_by(username=current_user.username)
+#     if adm[0].permissions == 'admin':
+#         u.status = status
+#         db.session.commit()
+#     return redirect(url_for('admin'))
 
-@app.route("/bloq/<user>/<status>", methods=['GET', 'POST'])
+@app.route("/edit_user/<user>", methods=['GET', 'POST'])
 @login_required
-def bloq(user, status):
+def edit_user(user):
     u = User.query.filter_by(username=user).first()
     adm = User.query.filter_by(username=current_user.username)
-    if adm[0].permissions == 'admin':
-        u.status = status
+    form = EditUserForm(u.username, u.email)
+    if form.validate_on_submit() and adm[0].permissions == 'admin':
+        u.username = unidecode.unidecode(form.username.data)
+        u.email = form.email.data
+        if form.permis.data != 'selecione':
+            u.permissions = form.permis.data
+        if form.status.data != 'selecione':
+            u.status = form.status.data
         db.session.commit()
-    return redirect(url_for('admin'))
+        flash('Alterações realizadas com sucesso.')
+        return redirect(url_for('index'))
+    elif request.method == 'GET':
+        form.username.data = u.username
+        form.email.data = u.email
+    return render_template('edit_users.html', user=u, form=form)
