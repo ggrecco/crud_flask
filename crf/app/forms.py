@@ -45,17 +45,16 @@ class EditProfileForm(FlaskForm):
         self.original_username = original_username
         self.original_email = original_email
 
-        def validate_username(self, username):
-            if username.data != self.original_username:
-                user = User.query.filter_by(username=self.username.data).first()
-                if user is not None:
-                    raise ValidationError('Favor utilizar outro nome de usuario.')
+    def validate_username(self, username):
+        user = User.query.filter_by(username=self.username.data).first()
+        if user is not None:
+            raise ValidationError('Favor utilizar outro nome de usuario.')
 
-        def validate_email(self, email):
-            if email.data != self.original_email:
-                email = User.query.filter_by(email=self.email.data).first()
-                if email is not None:
-                    raise ValidationError('Favor utilizar outro e-mail.')
+    def validate_email(self, email):
+        if email.data != self.original_email:
+            email = User.query.filter_by(email=self.email.data).first()
+            if email is not None:
+                raise ValidationError('Favor utilizar outro e-mail.')
 
 
 class DeleteForm(FlaskForm):
@@ -80,15 +79,15 @@ class EditUserForm(FlaskForm):
         self.original_username = original_username
         self.original_email = original_email
 
-        def validate_username(self, username):
-            if username.data != self.original_username:
-                user = User.query.filter_by(username=self.username.data).first()
-                if user is not None:
-                    raise ValidationError('Favor utilizar outro nome de usuario.')
+    def validate_username(self, username):
+        if username.data != self.original_username:
+            user = User.query.filter_by(username=self.username.data).first()
+            if user is not None:
+                raise ValidationError('Favor utilizar outro nome de usuario.')
 
-        def validate_email(self, email):
-            if email.data != self.original_email:
-                email = User.query.filter_by(email=self.email.data).first()
-                if email is not None:
-                    raise ValidationError('Favor utilizar outro e-mail.')
+    def validate_email(self, email):
+        if email.data != self.original_email:
+            email = User.query.filter_by(email=self.email.data).first()
+            if email is not None:
+                raise ValidationError('Favor utilizar outro e-mail.')
                 

@@ -57,7 +57,7 @@ def register():
     form = RegistrationForm()
     if form.validate_on_submit():
         user = User(username=form.username.data, email=form.email.data,
-                    permissions='ler', status='ativo')
+                    permissions='ler', status='bloqueado')
         user.set_password(form.password.data)
         db.session.add(user)
         db.session.commit()
@@ -149,7 +149,7 @@ def edit_user(user):
             u.status = form.status.data
         db.session.commit()
         flash('Alterações realizadas com sucesso.')
-        return redirect(url_for('index'))
+        return redirect(url_for('admin'))
     elif request.method == 'GET':
         form.username.data = u.username
         form.email.data = u.email

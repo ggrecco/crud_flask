@@ -6,25 +6,25 @@
         {{ form.csrf_token }}
         {{ form.hidden_tag() }}
         <p>
-            {{form.username.label()}}
+            {{form.username.label}}
             {{form.username()}}
             {% for error in form.username.errors %}
-            <span style="color: red;">{{[erro]}}</span>
+            <span style="color: red;">[{{ error }}]</span>
             {% endfor %}
         </p>
         <p>
-            {{form.email.label()}}
-            {{form.email()}}
+            {{ form.email.label }}
+            {{ form.email() }}
             {% for error in form.email.errors %}
-            <span style="color: red;">{{[erro]}}</span>
+            <span style="color: red;">[{{ error }}]</span>
             {% endfor %}
         </p>
         <p>
-            {{form.status.label()}}
+            {{form.status.label}}
             {{form.status()}}
         </p>
         <p>
-            {{form.permis.label()}}
+            {{form.permis.label}}
             {{form.permis()}}
         </p>
         {{form.submit()}}
