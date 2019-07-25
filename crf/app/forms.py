@@ -12,10 +12,7 @@ class LoginForm(FlaskForm):
     remember_me = BooleanField('Lembrar')
     submit = SubmitField('Entrar', render_kw={"class": "testandoCLASS",
                                               "id": "tetandoID"})
-    # escolhas = SelectField('Escolha', choices=[('escolha 1', 'escolha 1'),
-    #                                             ('escolha 2', 'escolha 2'),
-    #                                             ('escolha 3', 'escolha 3')],
-    #                        render_kw={"class": "teste"})
+
 
 
 class RegistrationForm(FlaskForm):
