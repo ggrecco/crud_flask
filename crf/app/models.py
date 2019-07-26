@@ -12,6 +12,7 @@ class User(UserMixin, db.Model):
     last_seen = db.Column(db.DateTime, default=datetime.utcnow)
     permissions = db.Column(db.String(3))
     status = db.Column(db.String(10))
+    cosia = db.relationship('Coisa', backref='QualquerCoisa', lazy='dynamic')
 
     def __repr__(self):
         return '<Usuario {}>'.format(self.username)
@@ -26,3 +27,15 @@ class User(UserMixin, db.Model):
 @login.user_loader
 def load_user(id):
     return User.query.get(int(id))
+
+
+class Coisa(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(64), index=True, unique=True)
+    age = db.Column(db.String(5))
+    weight = db.Column(db.String(5))
+    priority = db.Column(db.String(20))
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    
+    def __repr__(self): 
+        return '<Coisa {}>'.format(self.name)

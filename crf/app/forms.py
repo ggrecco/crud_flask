@@ -65,12 +65,13 @@ class EditUserForm(FlaskForm):
     username = StringField('Usuario', validators=[DataRequired()])
     email = StringField('E-mail', validators=[DataRequired()])
     status = SelectField('Status', choices=[('selecione', 'selecione'),
-                                            ('ativo', 'Ativo'),
-                                            ('bloqueado', 'Bloqueado')])
+                                            ('active', 'Ativo'),
+                                            ('blocked', 'Bloqueado')])
     permis = SelectField('Permissões', choices=[('selecione', 'selecione'),
-                                                ('ler', 'Ler'),
-                                                ('editar', 'Editar'),
-                                                ('ler_editar', 'Ler e Editar'),
+                                                ('create_read', 'Cadastrar e Visualizar'),
+                                                ('update', 'Editar'),
+                                                ('delete', 'Excluir'),
+                                                ('crud','Todas'),
                                                 ('admin', 'Administrador')])
     submit = SubmitField('Enviar')
 
@@ -91,3 +92,18 @@ class EditUserForm(FlaskForm):
             if email is not None:
                 raise ValidationError('Favor utilizar outro e-mail.')
                 
+
+
+class CoisaForm(FlaskForm):
+    name = StringField('Nome', validators=[DataRequired()],
+                       render_kw={"placeholder": "Nome"})
+    age = StringField('Idade', validators=[DataRequired()],
+                      render_kw={"placeholder": "Idade"})
+    weight = StringField('Peso', validators=[DataRequired()],
+                         render_kw={"placeholder": "em Kg"})
+    priority = SelectField('Prioridade', choices=[('verde', 'Verde'),
+                                                  ('amarelo', 'Amarelo'),
+                                                  ('vermelho', 'Vermelho')])
+    submit = SubmitField('Cadastrar')
+    
+   

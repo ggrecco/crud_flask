@@ -15,14 +15,18 @@
     Crud-Flask:
         <a href="{{ url_for('index') }}">{{ _('Home') }}</a>
         {% if current_user.is_anonymous %}
-        <a href="{{ url_for('login') }}">{{ _('Login') }}</a>
+            <a href="{{ url_for('login') }}">{{ _('Login') }}</a>
+
         {% elif current_user.permissions == 'admin' %}
-        <a href="{{ url_for('admin') }}">ADMINISTRAÇÃO</a>
-        <a href="{{ url_for('logout') }}">{{ _('Logout')}}[{{(current_user.username)}}]</a>
-        {% else %}
+            <a href="{{ url_for('admin') }}">ADM</a>
+
+        {% elif current_user.permissions == 'read' or 'create_read' %}
+            <a href="{{ url_for('create') }}">Cadastrar</a>
+            <a href="{{ url_for('read') }}">Visualizar</a>
+
+        {% endif %}
         <a href="{{ url_for('user', username=current_user.username) }}">Perfil</a>
         <a href="{{ url_for('logout') }}">{{ _('Logout')}}[{{(current_user.username)}}]</a>
-        {% endif %}
     </div>
     <hr>
     {% with messages = get_flashed_messages() %}

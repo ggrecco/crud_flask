@@ -1,8 +1,8 @@
 from flask import render_template, flash, redirect, url_for, request
 from flask_login import current_user, login_user, logout_user, login_required
 from app import app, db
-from app.forms import LoginForm, RegistrationForm, EditProfileForm, DeleteForm, EditUserForm
-from app.models import User
+from app.forms import LoginForm, RegistrationForm, EditProfileForm, DeleteForm, EditUserForm, CoisaForm
+from app.models import User, Coisa
 from werkzeug.urls import url_parse
 from datetime import datetime
 from flask import g
@@ -33,7 +33,7 @@ def login():
     form = LoginForm()
     if form.validate_on_submit():
         user = User.query.filter_by(username=form.username.data).first()
-        if user is None or not user.check_password(form.password.data) or user.status != 'ativo':
+        if user is None or not user.check_password(form.password.data) or user.status != 'active':
             flash(_('Invalid user or password'))
             return redirect(url_for('login'))
         login_user(user, remember=form.remember_me.data)
@@ -57,7 +57,7 @@ def register():
     form = RegistrationForm()
     if form.validate_on_submit():
         user = User(username=form.username.data, email=form.email.data,
-                    permissions='ler', status='bloqueado')
+                    permissions='read', status='blocked')
         user.set_password(form.password.data)
         db.session.add(user)
         db.session.commit()
@@ -123,16 +123,6 @@ def admin():
     return render_template('list_users.html', title='Usuarios', 
                             users=user)
 
-# caso opção esteja na aba ADMINISTRAÇÃO
-# @app.route("/bloq/<user>/<status>", methods=['GET', 'POST'])
-# @login_required
-# def bloq(user, status):
-#     u = User.query.filter_by(username=user).first()
-#     adm = User.query.filter_by(username=current_user.username)
-#     if adm[0].permissions == 'admin':
-#         u.status = status
-#         db.session.commit()
-#     return redirect(url_for('admin'))
 
 @app.route("/edit_user/<user>", methods=['GET', 'POST'])
 @login_required
@@ -154,3 +144,43 @@ def edit_user(user):
         form.username.data = u.username
         form.email.data = u.email
     return render_template('edit_users.html', user=u, form=form)
+
+
+@app.route("/create", methods=['GET', 'POST'])
+@login_required
+def create():
+    if current_user.permissions == 'create' or  'update':
+        form = CoisaForm()
+        if form.validate_on_submit():
+            u = int(current_user.id)
+            coisa = Coisa(name=form.name.data, age=form.age.data,
+                          weight=form.weight.data, priority=form.priority.data,
+                          user_id=u)
+            db.session.add(coisa)
+            db.session.commit()
+            return redirect(url_for('cadastrar'))
+        return render_template('create.html', title='qualquer coisa', form=form)
+    else:
+        return render_template('404.html')
+   
+    
+@app.route("/read", methods=['GET', 'POST'])
+@login_required
+def read():
+    u = int(current_user.id)
+    coisa = Coisa.query.filter_by(user_id=u)
+    size = len(list(coisa))
+    return render_template('list_data.html', size=size, coisas=coisa)
+
+
+@app.route("/update/<name>", methods=['GET', 'POST'])
+@login_required
+def update(name):
+    coisa = Coisa.query.filter_by(name=name)
+    print(coisa[0].name)
+    return redirect(url_for('read'))
+
+@app.route("/delete", methods=['GET', 'POST'])
+@login_required
+def delete():
+    pass

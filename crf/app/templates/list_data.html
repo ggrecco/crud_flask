@@ -1,0 +1,34 @@
+{% extends "index.html" %}
+{% block content %}
+<h1>Cadastrados</h1>
+  {% if size != 0 %}
+  <table>
+  <thead>
+    <tr>
+      <th>Nome</th>
+      <th>Idade</th>
+      <th>Peso</th>
+      <th>Prioridade</th>
+      <th>Opções</th>
+    </tr>
+  </thead>
+  {% for coisa in coisas%}
+  <tr>
+    <td>{{coisa.name}}</td>
+    <td>{{coisa.age}}</td>
+    <td>{{coisa.weight}}</td>
+    <td>{{coisa.priority}}</td>
+    <td>
+        <a href="{{ url_for('update', name=coisa.name) }}">Atualizar</a>
+    </td>
+  </tr>
+{% endfor %}
+  </table>
+  {% else %}
+  <div>
+    Não há registro
+  </div>
+  {% endif %}
+</div>
+</div>
+{% endblock %}

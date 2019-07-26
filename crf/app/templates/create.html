@@ -1,0 +1,36 @@
+{% extends "index.html" %}
+{% block content %}
+<form action="" method="post">
+    <div>
+        <div>
+        {{ form.csrf_token }}
+        {{ form.hidden_tag() }}
+        <p>
+          {{ form.name.label() }}<br>
+          {{ form.name() }}<br>
+        </p>
+        <p>
+          {{ form.age.label() }}<br>
+          {{ form.age() }}<br>
+        </p>
+    </div>
+      <div>
+        <p>
+          {{ form.weight.label() }}<br>
+          {{ form.weight() }}<br>
+        </p>
+        <p>
+        <div>
+          {{ form.priority.label() }}<br>
+          {{ form.priority() }}<br>
+        </div>
+      </div>
+    </div>
+    <div >
+        <div >
+            {{ form.submit() }}
+            <br />
+        </div>
+    </div>
+</form>
+{% endblock %}
