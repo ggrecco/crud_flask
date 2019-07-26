@@ -120,7 +120,7 @@ def admin():
     if user[0].permissions != 'admin':
         return redirect(url_for('index'))
     user = User.query.all()
-    return render_template('list_users.html', title='Usuarios', 
+    return render_template('list_users.html', title='Usuarios',
                             users=user)
 
 
@@ -149,7 +149,7 @@ def edit_user(user):
 @app.route("/create", methods=['GET', 'POST'])
 @login_required
 def create():
-    if current_user.permissions == 'create' or  'update':
+    if current_user.permissions == 'create' or 'update':
         form = CoisaForm()
         if form.validate_on_submit():
             u = int(current_user.id)
@@ -158,12 +158,14 @@ def create():
                           user_id=u)
             db.session.add(coisa)
             db.session.commit()
-            return redirect(url_for('cadastrar'))
-        return render_template('create.html', title='qualquer coisa', form=form)
+            flash('Cadastro realzado com sucesso')
+            return redirect(url_for('create'))
+        return render_template('create.html',
+                               title='qualquer coisa', form=form)
     else:
         return render_template('404.html')
-   
-    
+
+
 @app.route("/read", methods=['GET', 'POST'])
 @login_required
 def read():
@@ -179,6 +181,7 @@ def update(name):
     coisa = Coisa.query.filter_by(name=name)
     print(coisa[0].name)
     return redirect(url_for('read'))
+
 
 @app.route("/delete", methods=['GET', 'POST'])
 @login_required
