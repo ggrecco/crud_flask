@@ -16,7 +16,7 @@ class User(UserMixin, db.Model):
 
     def __repr__(self):
         return '<Usuario {}>'.format(self.username)
-    
+
     def set_password(self, password):
         self.password_hash = generate_password_hash(password)
 
@@ -31,11 +31,11 @@ def load_user(id):
 
 class Coisa(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(64), index=True, unique=True)
+    name = db.Column(db.String(64))
     age = db.Column(db.String(5))
     weight = db.Column(db.String(5))
     priority = db.Column(db.String(20))
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-    
-    def __repr__(self): 
+
+    def __repr__(self):
         return '<Coisa {}>'.format(self.name)

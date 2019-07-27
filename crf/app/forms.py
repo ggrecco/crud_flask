@@ -70,7 +70,7 @@ class EditUserForm(FlaskForm):
     permis = SelectField('Permissões',
                          choices=[('selecione', 'selecione'),
                                   ('create_read', 'Cadastrar e Visualizar'),
-                                  ('update', 'Editar'),
+                                  ('update', 'Cadastrar, Visualizar e Editar'),
                                   ('delete', 'Excluir'),
                                   ('crud', 'Todas'),
                                   ('admin', 'Administrador')])

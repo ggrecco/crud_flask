@@ -95,7 +95,6 @@ def edit_profile():
 def delete_myuser(myuser):
     form = DeleteForm()
     if form.validate_on_submit() and current_user.permissions == 'admin':
-        print('sou admin')
         u = User.query.filter_by(username=myuser).first()
         db.session.delete(u)
         db.session.commit()
@@ -158,7 +157,7 @@ def create():
                           user_id=u)
             db.session.add(coisa)
             db.session.commit()
-            flash('Cadastro realzado com sucesso')
+            flash('Cadastro realizado com sucesso')
             return redirect(url_for('create'))
         return render_template('create.html',
                                title='qualquer coisa', form=form)
@@ -169,7 +168,7 @@ def create():
 @app.route("/read", methods=['GET', 'POST'])
 @login_required
 def read():
-    if current_user.permissions == 'create_read':
+    if current_user.permissions == 'create_read' or 'update':
         u = int(current_user.id)
         coisa = Coisa.query.filter_by(user_id=u)
         size = len(list(coisa))
@@ -180,8 +179,28 @@ def read():
 @app.route("/update/<name>", methods=['GET', 'POST'])
 @login_required
 def update(name):
-    coisa = Coisa.query.filter_by(name=name)
-    print(coisa[0].name)
+    if current_user.permissions == 'update':
+        coisa = Coisa.query.filter_by(name=name, user_id=current_user.id)
+        form = CoisaForm()
+        if form.validate_on_submit():
+            if coisa[0].name != form.name.data:
+                coisa[0].name = form.name.data
+            if coisa[0].name != form.age.data:
+                coisa[0].age = form.age.data
+            if coisa[0].name != form.weight.data:
+                coisa[0].weight = form.weight.data
+            if coisa[0].name != form.priority.data:
+                coisa[0].priority = form.priority.data
+            db.session.commit()
+            flash('Cadastro atualizado com sucesso')
+            return redirect(url_for('read'))
+        elif request.method == 'GET':
+            form.name.data = coisa[0].name
+            form.age.data = coisa[0].age
+            form.weight.data = coisa[0].weight
+            form.priority.data = coisa[0].priority
+        return render_template('edit_data.html', coisas=coisa,
+                               form=form)
     return redirect(url_for('read'))
 
 

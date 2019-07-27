@@ -19,7 +19,11 @@
     <td>{{coisa.weight}}</td>
     <td>{{coisa.priority}}</td>
     <td>
-        <a href="{{ url_for('update', name=coisa.name) }}">Atualizar</a>
+        {% if current_user.permissions == 'update' %}
+            <a href="{{ url_for('update', name=coisa.name) }}">Atualizar</a>
+        {% else %}
+            Atualizar
+        {% endif %}
     </td>
   </tr>
 {% endfor %}
