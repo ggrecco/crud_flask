@@ -121,7 +121,7 @@ def admin():
         return redirect(url_for('index'))
     user = User.query.all()
     return render_template('list_users.html', title='Usuarios',
-                            users=user)
+                           users=user)
 
 
 @app.route("/edit_user/<user>", methods=['GET', 'POST'])
@@ -169,10 +169,12 @@ def create():
 @app.route("/read", methods=['GET', 'POST'])
 @login_required
 def read():
-    u = int(current_user.id)
-    coisa = Coisa.query.filter_by(user_id=u)
-    size = len(list(coisa))
-    return render_template('list_data.html', size=size, coisas=coisa)
+    if current_user.permissions == 'create_read':
+        u = int(current_user.id)
+        coisa = Coisa.query.filter_by(user_id=u)
+        size = len(list(coisa))
+        return render_template('list_data.html', size=size, coisas=coisa)
+    return render_template('404.html')
 
 
 @app.route("/update/<name>", methods=['GET', 'POST'])

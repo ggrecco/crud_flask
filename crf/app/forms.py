@@ -6,9 +6,9 @@ from app.models import User
 
 class LoginForm(FlaskForm):
     username = StringField('Usuário', validators=[DataRequired()],
-                           render_kw={"placeholder" : "Nome de Usuário"})
+                           render_kw={"placeholder": "Nome de Usuário"})
     password = PasswordField('Senha', validators=[DataRequired()],
-                             render_kw={"placeholder" : "Senha"})
+                             render_kw={"placeholder": "Senha"})
     remember_me = BooleanField('Lembrar')
     submit = SubmitField('Entrar', render_kw={"class": "testandoCLASS",
                                               "id": "tetandoID"})
@@ -19,7 +19,7 @@ class RegistrationForm(FlaskForm):
     username = StringField('Nome de usuário', validators=[DataRequired()])
     email = StringField('Email', validators=[DataRequired(), Email()])
     password = PasswordField('Senha', validators=[DataRequired()])
-    password2 = PasswordField('Repita a senha', 
+    password2 = PasswordField('Repita a senha',
                               validators=[DataRequired(),
                                           EqualTo('password')])
     submit = SubmitField('Registrar')
@@ -67,12 +67,13 @@ class EditUserForm(FlaskForm):
     status = SelectField('Status', choices=[('selecione', 'selecione'),
                                             ('active', 'Ativo'),
                                             ('blocked', 'Bloqueado')])
-    permis = SelectField('Permissões', choices=[('selecione', 'selecione'),
-                                                ('create_read', 'Cadastrar e Visualizar'),
-                                                ('update', 'Editar'),
-                                                ('delete', 'Excluir'),
-                                                ('crud','Todas'),
-                                                ('admin', 'Administrador')])
+    permis = SelectField('Permissões',
+                         choices=[('selecione', 'selecione'),
+                                  ('create_read', 'Cadastrar e Visualizar'),
+                                  ('update', 'Editar'),
+                                  ('delete', 'Excluir'),
+                                  ('crud', 'Todas'),
+                                  ('admin', 'Administrador')])
     submit = SubmitField('Enviar')
 
     def __init__(self, original_username, original_email, *args, **kwargs):
@@ -91,7 +92,6 @@ class EditUserForm(FlaskForm):
             email = User.query.filter_by(email=self.email.data).first()
             if email is not None:
                 raise ValidationError('Favor utilizar outro e-mail.')
-                
 
 
 class CoisaForm(FlaskForm):
@@ -105,5 +105,3 @@ class CoisaForm(FlaskForm):
                                                   ('amarelo', 'Amarelo'),
                                                   ('vermelho', 'Vermelho')])
     submit = SubmitField('Cadastrar')
-    
-   
