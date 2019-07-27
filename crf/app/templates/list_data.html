@@ -19,10 +19,15 @@
     <td>{{coisa.weight}}</td>
     <td>{{coisa.priority}}</td>
     <td>
-        {% if current_user.permissions == 'update' %}
+        {% if current_user.permissions == 'update' or 'crud' %}
             <a href="{{ url_for('update',cid=coisa.id ,name=coisa.name) }}">Atualizar</a>
         {% else %}
             Atualizar
+        {% endif %}
+        {% if current_user.permissions == 'delete' or 'crud' %}
+            <a href="{{ url_for('delete',cid=coisa.id ,name=coisa.name) }}">Deletar</a>
+        {% else %}
+            Deletar
         {% endif %}
     </td>
   </tr>

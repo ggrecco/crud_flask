@@ -1,7 +1,8 @@
 from flask import render_template, flash, redirect, url_for, request
 from flask_login import current_user, login_user, logout_user, login_required
 from app import app, db
-from app.forms import LoginForm, RegistrationForm, EditProfileForm, DeleteForm, EditUserForm, CoisaForm
+from app.forms import LoginForm, RegistrationForm, EditProfileForm,\
+                        DeleteForm, EditUserForm, CoisaForm
 from app.models import User, Coisa
 from werkzeug.urls import url_parse
 from datetime import datetime
@@ -150,7 +151,7 @@ def edit_user(user):
 @app.route("/create", methods=['GET', 'POST'])
 @login_required
 def create():
-    if current_user.permissions == 'create' or 'update':
+    if current_user.permissions == 'create' or 'update' or 'crud':
         form = CoisaForm()
         if form.validate_on_submit():
             u = int(current_user.id)
@@ -170,7 +171,7 @@ def create():
 @app.route("/read", methods=['GET', 'POST'])
 @login_required
 def read():
-    if current_user.permissions == 'create_read' or 'update':
+    if current_user.permissions == 'create_read' or 'update' or 'crud':
         u = int(current_user.id)
         coisa = Coisa.query.filter_by(user_id=u)
         size = len(list(coisa))
@@ -181,7 +182,7 @@ def read():
 @app.route("/update/<name>/<cid>", methods=['GET', 'POST'])
 @login_required
 def update(name, cid):
-    if current_user.permissions == 'update':
+    if current_user.permissions == 'update' or 'crud':
         coisa = Coisa.query.filter_by(id=cid, name=name,
                                       user_id=current_user.id).first()
         form = CoisaForm()
@@ -208,7 +209,18 @@ def update(name, cid):
     return redirect(url_for('read'))
 
 
-@app.route("/delete", methods=['GET', 'POST'])
+@app.route("/delete/<cid>/<name>", methods=['GET', 'POST'])
 @login_required
-def delete():
-    pass
+def delete(cid, name):
+    if current_user.permissions == 'delete' or 'crud':
+        print('deletou "{}" com sucesso'.format(name))
+        form = DeleteForm()
+        coisa = Coisa.query.filter_by(id=cid, name=name,
+                                      user_id=current_user.id).first_or_404()
+        if form.validate_on_submit():
+            db.session.delete(coisa)
+            db.session.commit()
+            flash('{} Excluido.'.format(name))
+            return redirect(url_for('read'))
+        return render_template('delete_date.html', form=form,
+                               coisas=coisa)

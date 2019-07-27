@@ -20,7 +20,7 @@
         {% elif current_user.permissions == 'admin' %}
             <a href="{{ url_for('admin') }}">ADM</a>
 
-        {% elif current_user.permissions == 'create_read' or 'update' %}
+        {% elif current_user.permissions == 'create_read' or 'update' or 'crud' %}
             <a href="{{ url_for('create') }}">Cadastrar</a>
             <a href="{{ url_for('read') }}">Visualizar</a>
 
