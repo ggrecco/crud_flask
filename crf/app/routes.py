@@ -142,6 +142,8 @@ def edit_user(user):
     elif request.method == 'GET':
         form.username.data = u.username
         form.email.data = u.email
+        form.status.data = u.status
+        form.permis.data = u.permissions
     return render_template('edit_users.html', user=u, form=form)
 
 
@@ -176,29 +178,31 @@ def read():
     return render_template('404.html')
 
 
-@app.route("/update/<name>", methods=['GET', 'POST'])
+@app.route("/update/<name>/<cid>", methods=['GET', 'POST'])
 @login_required
-def update(name):
+def update(name, cid):
     if current_user.permissions == 'update':
-        coisa = Coisa.query.filter_by(name=name, user_id=current_user.id)
+        coisa = Coisa.query.filter_by(id=cid, name=name,
+                                      user_id=current_user.id).first()
         form = CoisaForm()
         if form.validate_on_submit():
-            if coisa[0].name != form.name.data:
-                coisa[0].name = form.name.data
-            if coisa[0].name != form.age.data:
-                coisa[0].age = form.age.data
-            if coisa[0].name != form.weight.data:
-                coisa[0].weight = form.weight.data
-            if coisa[0].name != form.priority.data:
-                coisa[0].priority = form.priority.data
+            if coisa.name != form.name.data:
+                coisa.name = form.name.data
+                # flash('Não é permitido trocar o nome.')
+            if coisa.age != form.age.data:
+                coisa.age = form.age.data
+            if coisa.weight != form.weight.data:
+                coisa.weight = form.weight.data
+            if coisa.priority != form.priority.data:
+                coisa.priority = form.priority.data
             db.session.commit()
-            flash('Cadastro atualizado com sucesso')
+            flash('Atualizado com sucesso')
             return redirect(url_for('read'))
         elif request.method == 'GET':
-            form.name.data = coisa[0].name
-            form.age.data = coisa[0].age
-            form.weight.data = coisa[0].weight
-            form.priority.data = coisa[0].priority
+            form.name.data = coisa.name
+            form.age.data = coisa.age
+            form.weight.data = coisa.weight
+            form.priority.data = coisa.priority
         return render_template('edit_data.html', coisas=coisa,
                                form=form)
     return redirect(url_for('read'))
