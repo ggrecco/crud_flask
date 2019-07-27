@@ -97,7 +97,9 @@ def delete_myuser(myuser):
     form = DeleteForm()
     if form.validate_on_submit() and current_user.permissions == 'admin':
         u = User.query.filter_by(username=myuser).first()
+        c = Coisa.query.filter_by(user_id=u.id)
         db.session.delete(u)
+        c.delete()
         db.session.commit()
         flash('Usuário excluido com sucesso.')
         return redirect(url_for('index'))
