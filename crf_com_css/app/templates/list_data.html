@@ -1,0 +1,43 @@
+{% extends "index.html" %}
+{% block content %}
+<h1>Cadastrados</h1>
+  {% if size != 0 %}
+  <table>
+  <thead>
+    <tr>
+      <th>Nome</th>
+      <th>Idade</th>
+      <th>Peso</th>
+      <th>Prioridade</th>
+      <th>Opções</th>
+    </tr>
+  </thead>
+  {% for coisa in coisas%}
+  <tr>
+    <td>{{coisa.name}}</td>
+    <td>{{coisa.age}}</td>
+    <td>{{coisa.weight}}</td>
+    <td>{{coisa.priority}}</td>
+    <td>
+        {% if current_user.permissions == 'update' or 'crud' %}
+            <a href="{{ url_for('update',cid=coisa.id ,name=coisa.name) }}">Atualizar</a>
+        {% else %}
+            Atualizar
+        {% endif %}
+        {% if current_user.permissions == 'delete' or 'crud' %}
+            <a href="{{ url_for('delete',cid=coisa.id ,name=coisa.name) }}">Deletar</a>
+        {% else %}
+            Deletar
+        {% endif %}
+    </td>
+  </tr>
+{% endfor %}
+  </table>
+  {% else %}
+  <div>
+    Não há registro
+  </div>
+  {% endif %}
+</div>
+</div>
+{% endblock %}
