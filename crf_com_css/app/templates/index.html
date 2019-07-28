@@ -21,13 +21,13 @@
         </div>
         {% if current_user.is_anonymous %}
             <aside class="autenticacao">
+                <a href="{{ url_for('register') }}" class="botao destaque">Registrar</a>
                 <a href="{{ url_for('login') }}" class="botao destaque">{{ _('Login') }}</a>
             </aside>
         {% elif current_user.permissions == 'admin' %}
         <nav class="menu">
             <ul>
                 <li>
-
                     <a href="{{ url_for('admin') }}">ADM</a>
                 </li>
         </nav>

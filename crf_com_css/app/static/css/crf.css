@@ -13,7 +13,7 @@ body {
 .cabecalho a {
     text-decoration: none;
     color: #aaa;
-    font-size: 1.3em;
+    font-size: 1.2em;
     padding: 10px 15px;
 }
 
@@ -48,7 +48,7 @@ body {
 }
 
 .btn {
-    border-radius: 30px;
+    border-radius: 10px;
     margin-right: 10px;
 }
 
@@ -63,6 +63,44 @@ body {
 }
 
 
+.btn-form{
+    color: #fff;
+    background: #337ab7;
+    border-color: #2e6da4;
+    border-top-color: rgb(46, 109, 164);
+    border-right-color: rgb(46, 109, 164);
+    border-bottom-color: rgb(46, 109, 164);
+    border-left-color: rgb(46, 109, 164);
+    display: inline-block;
+    margin-bottom: 0;
+    font-weight: 400;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    border: 1px solid transparent;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    border-radius: 4px;
+    background-image: none;
+    font-size: 1.2em;
+    /* box-shadow: 0px 5px 6px 0px rgba(0,0,0,0.48); */
+
+}
+
+.btn-form:hover{
+    color: #fff;
+    background-color: #286090;
+    border-color: #204d74;
+}
+
+
+.btn-form:active{
+    color: #fff;
+    background-color: #122b40;
+    background-image: none;
+    border-color: ##204d74;
+}
 /* flex box */
 
 .cabecalho {
