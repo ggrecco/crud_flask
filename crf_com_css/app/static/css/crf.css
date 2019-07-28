@@ -3,6 +3,18 @@ body {
     font-family: sans-serif;
     /* background-color: lightgray; */
 }
+
+.form-dropdown{
+   -webkit-appearance: none;
+   -moz-appearance: none;
+   appearance: none;
+   background: url(../img/drop_down.png) no-repeat #ffffff;
+   background-position: center right;
+   border: 1px solid #ccc;
+   width: 150px; /* tamanho da caixa */
+   margin-bottom: 10px;
+}
+
 .form:focus{
     border: 2px solid #ccc;
     border-color: #66afe9;

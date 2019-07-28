@@ -6,23 +6,27 @@ from app.models import User
 
 class LoginForm(FlaskForm):
     username = StringField('Usuário', validators=[DataRequired()],
-                           render_kw={"placeholder": "Nome de Usuário"})
+                           render_kw={"placeholder": "Nome de Usuário",
+                                      "class": "form"})
     password = PasswordField('Senha', validators=[DataRequired()],
-                             render_kw={"placeholder": "Senha"})
+                             render_kw={"placeholder": "Senha",
+                                        "class": "form"})
     remember_me = BooleanField('Lembrar')
-    submit = SubmitField('Entrar', render_kw={"class": "testandoCLASS",
-                                              "id": "tetandoID"})
-
+    submit = SubmitField('Entrar', render_kw={"class": "btn-blue"})
 
 
 class RegistrationForm(FlaskForm):
-    username = StringField('Nome de usuário', validators=[DataRequired()])
-    email = StringField('Email', validators=[DataRequired(), Email()])
-    password = PasswordField('Senha', validators=[DataRequired()])
+    username = StringField('Nome de usuário', validators=[DataRequired()],
+                           render_kw={"class": "form"})
+    email = StringField('Email', validators=[DataRequired(), Email()],
+                        render_kw={"class": "form"})
+    password = PasswordField('Senha', validators=[DataRequired()],
+                             render_kw={"class": "form"})
     password2 = PasswordField('Repita a senha',
                               validators=[DataRequired(),
-                                          EqualTo('password')])
-    submit = SubmitField('Registrar')
+                                          EqualTo('password')],
+                              render_kw={"class": "form"})
+    submit = SubmitField('Registrar', render_kw={"class": "btn-blue"})
 
     def validate_username(self, username):
         user = User.query.filter_by(username=username.data).first()
@@ -36,9 +40,11 @@ class RegistrationForm(FlaskForm):
 
 
 class EditProfileForm(FlaskForm):
-    username = StringField('Usuario', validators=[DataRequired()])
-    email = StringField('E-mail', validators=[DataRequired()])
-    submit = SubmitField('Enviar')
+    username = StringField('Usuario', validators=[DataRequired()],
+                           render_kw={"class": "form"})
+    email = StringField('E-mail', validators=[DataRequired()],
+                        render_kw={"class": "form"})
+    submit = SubmitField('Enviar', render_kw={"class": "btn-blue"})
 
     def __init__(self, original_username, original_email, *args, **kwargs):
         super(EditProfileForm, self).__init__(*args, **kwargs)
@@ -58,23 +64,28 @@ class EditProfileForm(FlaskForm):
 
 
 class DeleteForm(FlaskForm):
-    submit = SubmitField('Excluir')
+    submit = SubmitField('Excluir', render_kw={"class": "btn-red"})
 
 
 class EditUserForm(FlaskForm):
-    username = StringField('Usuario', validators=[DataRequired()])
-    email = StringField('E-mail', validators=[DataRequired()])
-    status = SelectField('Status', choices=[('selecione', 'selecione'),
-                                            ('active', 'Ativo'),
-                                            ('blocked', 'Bloqueado')])
+    username = StringField('Usuario', validators=[DataRequired()],
+                           render_kw={"class": "form"})
+    email = StringField('E-mail', validators=[DataRequired()],
+                        render_kw={"class": "form"})
+    status = SelectField('Status',
+                         choices=[('selecione', 'selecione'),
+                                  ('active', 'Ativo'),
+                                  ('blocked', 'Bloqueado')],
+                         render_kw={"class": "form"})
     permis = SelectField('Permissões',
                          choices=[('selecione', 'selecione'),
                                   ('create_read', 'Cadastrar e Visualizar'),
                                   ('update', 'Cadastrar, Visualizar e Editar'),
                                   ('delete', 'Excluir'),
                                   ('crud', 'Todas'),
-                                  ('admin', 'Administrador')])
-    submit = SubmitField('Enviar')
+                                  ('admin', 'Administrador')],
+                         render_kw={"class": "form-dropdown"})
+    submit = SubmitField('Enviar', render_kw={"class": "btn-blue"})
 
     def __init__(self, original_username, original_email, *args, **kwargs):
         super(EditUserForm, self).__init__(*args, **kwargs)
@@ -96,12 +107,18 @@ class EditUserForm(FlaskForm):
 
 class CoisaForm(FlaskForm):
     name = StringField('Nome', validators=[DataRequired()],
-                       render_kw={"placeholder": "Nome"})
+                       render_kw={"placeholder": "Nome",
+                                  "class": "form"})
     age = StringField('Idade', validators=[DataRequired()],
-                      render_kw={"placeholder": "Idade"})
+                      render_kw={"placeholder": "Idade",
+                                 "class": "form"})
     weight = StringField('Peso', validators=[DataRequired()],
-                         render_kw={"placeholder": "em Kg"})
-    priority = SelectField('Prioridade', choices=[('verde', 'Verde'),
-                                                  ('amarelo', 'Amarelo'),
-                                                  ('vermelho', 'Vermelho')])
-    submit = SubmitField('Cadastrar')
+                         render_kw={"placeholder": "em Kg",
+                                    "class": "form"})
+    priority = SelectField('Prioridade',
+                           choices=[('verde', 'Verde'),
+                                    ('amarelo', 'Amarelo'),
+                                    ('vermelho', 'Vermelho')],
+                           render_kw={"class": "form form-dropdown"})
+    submit = SubmitField('Cadastrar',
+                         render_kw={"class": "btn-blue"})
