@@ -101,6 +101,35 @@ body {
     background-image: none;
     border-color: ##204d74;
 }
+
+.form:focus{
+    border: 2px solid #ccc;
+    border-color: #66afe9;
+    border-top-color: rgb(102, 175, 233);
+    border-right-color: rgb(102, 175, 233);
+    border-bottom-color: rgb(102, 175, 233);
+    border-left-color: rgb(102, 175, 233);
+    outline: 0;
+    outline-color: currentcolor;
+    outline-style: none;
+    outline-width: 0px;
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(102,175,233,.6);
+    border-radius: 4px;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+    border-bottom-left-radius: 4px;
+    transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+    transition-property: border-color, box-shadow, box-shadow;
+    transition-duration: 0.15s, 0.15s, 0.15s;
+    transition-timing-function: ease-in-out, ease-in-out, ease-in-out;
+    transition-delay: 0s, 0s, 0s;
+    
+}
+
+
+
+
 /* flex box */
 
 .cabecalho {
