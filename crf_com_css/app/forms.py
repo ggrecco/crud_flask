@@ -76,7 +76,7 @@ class EditUserForm(FlaskForm):
                          choices=[('selecione', 'selecione'),
                                   ('active', 'Ativo'),
                                   ('blocked', 'Bloqueado')],
-                         render_kw={"class": "form"})
+                         render_kw={"class": "form form-dropdown"})
     permis = SelectField('Permissões',
                          choices=[('selecione', 'selecione'),
                                   ('create_read', 'Cadastrar e Visualizar'),
@@ -84,7 +84,7 @@ class EditUserForm(FlaskForm):
                                   ('delete', 'Excluir'),
                                   ('crud', 'Todas'),
                                   ('admin', 'Administrador')],
-                         render_kw={"class": "form-dropdown"})
+                         render_kw={"class": "form form-dropdown"})
     submit = SubmitField('Enviar', render_kw={"class": "btn-blue"})
 
     def __init__(self, original_username, original_email, *args, **kwargs):
