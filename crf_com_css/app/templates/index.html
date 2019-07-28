@@ -20,31 +20,31 @@
             </a>
         </div>
         {% if current_user.is_anonymous %}
-            <aside class="autenticacao">
-                <a href="{{ url_for('register') }}" class="botao destaque">Registrar</a>
-                <a href="{{ url_for('login') }}" class="botao destaque">{{ _('Login') }}</a>
+            <aside>
+                <a href="{{ url_for('login') }}" class="btn-blue">Fazer login</a>
+                <a href="{{ url_for('register') }}" class="botao btn-red">Cadastrar-se</a>
             </aside>
         {% elif current_user.permissions == 'admin' %}
         <nav class="menu">
             <ul>
                 <li>
-                    <a href="{{ url_for('admin') }}">ADM</a>
+                    <a href="{{ url_for('admin') }}" class="btn">ADM</a>
                 </li>
         </nav>
         {% elif current_user.permissions == 'create_read' or 'update' or 'crud' %}
         <nav class="menu">
             <ul>
                 <li>
-                    <a href="{{ url_for('create') }}">Cadastrar</a>
-                    <a href="{{ url_for('read') }}">Visualizar</a>
+                    <a href="{{ url_for('create') }}" class="btn">Cadastrar</a>
+                    <a href="{{ url_for('read') }}" class="btn">Visualizar</a>
                 </li>
         {% endif %}
             </ul>
         </nav>
         {% if not current_user.is_anonymous %}
-        <aside class="autenticacao">
-            <a href="{{ url_for('user', username=current_user.username) }}" >Perfil</a>
-            <a href="{{ url_for('logout') }}" class="btn btn-color-blue ">{{ _('Logout')}}[{{(current_user.username)}}]</a>
+        <aside>
+            <a href="{{ url_for('user', username=current_user.username) }}" class="btn">Perfil</a>
+            <a href="{{ url_for('logout') }}" class="btn-red botao">{{ _('Logout')}}[{{(current_user.username)}}]</a>
         </aside>
         {% endif %}
     </header>
@@ -52,7 +52,7 @@
     {% if messages %}
     <ul>
         {% for message in messages %}
-        <li>{{ message }}</li>
+        <li style="margin-top: 40px;">{{ message }}</li>
         {% endfor %}
     </ul>
     {% endif %}

@@ -3,105 +3,6 @@ body {
     font-family: sans-serif;
     /* background-color: lightgray; */
 }
-
-.cabecalho {
-    background: #373a47;
-    box-shadow: 10px 10px 30px 0px rgba(0,0,0,1);
-    height: 80px;
-}
-
-.cabecalho a {
-    text-decoration: none;
-    color: #aaa;
-    font-size: 1.2em;
-    padding: 10px 15px;
-}
-
-.cabecalho a:hover{
-    color: #fff;
-}
-
-.cabecalho .botao {
-    border-radius: 30px;
-    padding: 10px 25px;
-    margin-right: 10px;
-}
-
-.logo img {
-    height: 50px;
-}
-
-.menu ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-}
-
-.destaque {
-    background: #020c78;
-    color: #fff;
-    box-shadow: 0px 5px 6px 0px rgba(0,0,0,0.48);
-}
-
-.destaque:hover{
-    background: blue;
-}
-
-.btn {
-    border-radius: 10px;
-    margin-right: 10px;
-}
-
-.btn-color-blue {
-    background: #020c78;
-    color: #fff;
-    box-shadow: 0px 5px 6px 0px rgba(0,0,0,0.48);
-}
-
-.btn-color-blue:hover{
-    background: blue;
-}
-
-
-.btn-form{
-    color: #fff;
-    background: #337ab7;
-    border-color: #2e6da4;
-    border-top-color: rgb(46, 109, 164);
-    border-right-color: rgb(46, 109, 164);
-    border-bottom-color: rgb(46, 109, 164);
-    border-left-color: rgb(46, 109, 164);
-    display: inline-block;
-    margin-bottom: 0;
-    font-weight: 400;
-    text-align: center;
-    white-space: nowrap;
-    vertical-align: middle;
-    border: 1px solid transparent;
-    padding: 6px 12px;
-    font-size: 14px;
-    line-height: 1.42857143;
-    border-radius: 4px;
-    background-image: none;
-    font-size: 1.2em;
-    /* box-shadow: 0px 5px 6px 0px rgba(0,0,0,0.48); */
-
-}
-
-.btn-form:hover{
-    color: #fff;
-    background-color: #286090;
-    border-color: #204d74;
-}
-
-
-.btn-form:active{
-    color: #fff;
-    background-color: #122b40;
-    background-image: none;
-    border-color: ##204d74;
-}
-
 .form:focus{
     border: 2px solid #ccc;
     border-color: #66afe9;
@@ -124,8 +25,122 @@ body {
     transition-duration: 0.15s, 0.15s, 0.15s;
     transition-timing-function: ease-in-out, ease-in-out, ease-in-out;
     transition-delay: 0s, 0s, 0s;
-    
+
 }
+
+.cabecalho {
+    background: #373a47;
+    box-shadow: 10px 10px 30px 0px rgba(0,0,0,1);
+    height: 80px;
+}
+
+.cabecalho a {
+    text-decoration: none;
+    font-size: 1.2em;
+    padding: 10px 15px;
+}
+
+.cabecalho a:hover{
+    color: #fff;
+}
+
+.cabecalho .botao {
+    margin-right: 25px;
+}
+
+.logo img {
+    height: 50px;
+}
+
+.menu ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+/* mesma cor de fundo do cabecalho */
+.btn{
+    color: #999;
+    background: #373a47;
+    display: inline-block;
+    margin-bottom: 0;
+    font-weight: 400;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    border: 1px solid transparent;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    border-radius: 4px;
+    background-image: none;
+    font-size: 1.2em;
+}
+
+/* botão azul */
+.btn-blue{
+    color: #fff;
+    background: #337ab7;
+    display: inline-block;
+    margin-bottom: 0;
+    font-weight: 400;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    border: 1px solid transparent;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    border-radius: 4px;
+    background-image: none;
+    font-size: 1.2em;
+
+}
+
+.btn-blue:hover{
+    color: #fff;
+    background-color: #286090;
+}
+
+
+.btn-blue:active{
+    color: #fff;
+    background-color: #122b40;
+    background-image: none;
+}
+
+/* botão vermelho */
+.btn-red{
+    color: #fff;
+    background: #ec5252;
+    display: inline-block;
+    margin-bottom: 0;
+    font-weight: 400;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    border: 1px solid transparent;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    border-radius: 4px;
+    background-image: none;
+    font-size: 1.2em;
+
+}
+
+.btn-red:hover{
+    color: #fff;
+    background-color: #992337;
+}
+
+
+.btn-red:active{
+    color: #fff;
+    background-color: #521822;
+    background-image: none;
+}
+
 
 
 
