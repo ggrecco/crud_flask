@@ -14,6 +14,7 @@ body {
    width: 150px; /* tamanho da caixa */
    margin-bottom: 10px;
 }
+
 .form{
     display: block;
     width: 25%;
@@ -50,7 +51,6 @@ body {
     transition-duration: 0.15s, 0.15s, 0.15s;
     transition-timing-function: ease-in-out, ease-in-out, ease-in-out;
     transition-delay: 0s, 0s, 0s;
-
 }
 
 .cabecalho {
@@ -166,8 +166,13 @@ body {
     background-image: none;
 }
 
+.margem-topo{
+    margin-top: 40px;
+}
 
-
+.centro{
+    padding: 1% 3%;
+}
 
 
 /* flex box */
