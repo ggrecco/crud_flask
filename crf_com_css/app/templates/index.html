@@ -20,7 +20,7 @@
             </a>
         </div>
         {% if current_user.is_anonymous %}
-            <aside>
+            <aside class="lateral">
                 <a href="{{ url_for('login') }}" class="btn-blue">Fazer login</a>
                 <a href="{{ url_for('register') }}" class="botao btn-red">Cadastrar-se</a>
             </aside>
@@ -38,11 +38,11 @@
                     <a href="{{ url_for('create') }}" class="btn">Cadastrar</a>
                     <a href="{{ url_for('read') }}" class="btn">Visualizar</a>
                 </li>
-        {% endif %}
             </ul>
         </nav>
+        {% endif %}
         {% if not current_user.is_anonymous %}
-        <aside>
+        <aside class="lateral">
             <a href="{{ url_for('user', username=current_user.username) }}" class="btn">Perfil</a>
             <a href="{{ url_for('logout') }}" class="btn-red botao">{{ _('Logout')}}[{{(current_user.username)}}]</a>
         </aside>

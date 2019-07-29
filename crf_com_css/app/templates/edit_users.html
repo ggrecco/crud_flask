@@ -19,24 +19,13 @@
             <span style="color: red;">[{{ error }}]</span>
             {% endfor %}
         </p>
-        <table>
-            <thead>
-                <th>
-                    {{form.status.label}}
-                </th>
-                <th>
-                    {{form.permis.label}}
-                </th>
-            </thead>
-            <tbody>
-                <td>
-                    {{form.status(style='width: 105px;')}}
-                </td>
-                <td>
-                    {{form.permis(style='width: 225px;')}}
-                </td>
-            </tbody>
-        </table>
+        <p>
+            {{form.status.label}}
+            {{form.status(style='width: 105px;')}}
+
+            {{form.permis.label}}
+            {{form.permis(style='width: 225px;')}}
+        </p>
         {{form.submit()}}
     </form>
 
