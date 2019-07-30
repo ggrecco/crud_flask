@@ -215,7 +215,6 @@ def update(name, cid):
 @login_required
 def delete(cid, name):
     if current_user.permissions == 'delete' or 'crud':
-        print('deletou "{}" com sucesso'.format(name))
         form = DeleteForm()
         coisa = Coisa.query.filter_by(id=cid, name=name,
                                       user_id=current_user.id).first_or_404()

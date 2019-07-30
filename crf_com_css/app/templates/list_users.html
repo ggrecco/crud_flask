@@ -18,8 +18,8 @@
         <tr>
             <td>{{u.username}}</td>
             <td>{{u.email}}</td>
-            <td>{{u.permissions}}</td>
-            <td>{{u.status}}</td>
+            <td class="permissao">{{u.permissions}}</td>
+            <td class="td_status">{{u.status}}</td>
             <td>{{ moment(u.last_seen).format('LL') }}</td>
             <td>
                 <a href="{{ url_for('delete_myuser', myuser=u.username) }}">Deletar</a>

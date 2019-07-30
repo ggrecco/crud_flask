@@ -65,5 +65,31 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
     <script src="{{url_for('static', filename='js/crf.js')}}"></script>
+    <script>
+        const td_status = document.getElementsByClassName('td_status')
+        for(let e of td_status){
+            let txt = e.firstChild.nodeValue.replace("active", "Ativo")
+            e.innerHTML = txt
+        }
+        for(let e of td_status){
+            let txt = e.firstChild.nodeValue.replace("blocked", "Bloqueado")
+            e.innerHTML = txt
+        }
+
+        let permissao = document.getElementsByClassName('permissao')
+        for(let e of permissao){
+            let txt = e.firstChild.nodeValue.replace("admin", "Administrador")
+            e.innerHTML = txt
+        }
+        for(let e of permissao){
+            let txt = e.firstChild.nodeValue.replace("crud", "Todos")
+            e.innerHTML = txt
+        }
+        for(let e of permissao){
+            let txt = e.firstChild.nodeValue.replace("read", "Nenhuma")
+            e.innerHTML = txt
+        }
+        
+    </script>
 </body>
 </html>
