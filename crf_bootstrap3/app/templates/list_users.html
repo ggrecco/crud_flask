@@ -20,7 +20,7 @@
             <td>{{u.email}}</td>
             <td>{{u.permissions}}</td>
             <td>{{u.status}}</td>
-            <td>{{ moment(u.last_seen).format('LL') }}</td>
+            <td>{{ moment(u.last_seen).format('L') }}</td>
             <td>
                 <a href="{{ url_for('delete_myuser', myuser=u.username) }}">Deletar</a>
             </td>
