@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    {% if title %}
+    <title>{{ title }} - CRF</title>
+    {% else %}
+    <title>Crud-Flask!</title>
+    {% endif %}
+</head>
+<body>
+    <div>
+    Crud-Flask:
+        <a href="{{ url_for('index') }}">{{ _('Home') }}</a>
+        {% if current_user.is_anonymous %}
+            <a href="{{ url_for('login') }}">{{ _('Login') }}</a>
+
+        {% elif current_user.permissions == 'admin' %}
+            <a href="{{ url_for('admin') }}">ADM</a>
+
+        {% elif current_user.permissions == 'create_read' or 'update' or 'crud' %}
+            <a href="{{ url_for('create') }}">Cadastrar</a>
+            <a href="{{ url_for('read') }}">Visualizar</a>
+
+        {% endif %}
+        {% if not current_user.is_anonymous %}
+        <a href="{{ url_for('user', username=current_user.username) }}">Perfil</a>
+        <a href="{{ url_for('logout') }}">{{ _('Logout')}}[{{(current_user.username)}}]</a>
+        {% endif %}
+    </div>
+    <hr>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <ul>
+        {% for message in messages %}
+        <li>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    {% endwith %}
+    {% block content %}{% endblock %}
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment-with-locales.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    <script src="{{url_for('static', filename='js/crf.js')}}"></script>
+</body>
+</html>
