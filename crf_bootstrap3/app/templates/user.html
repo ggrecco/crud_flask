@@ -1,6 +1,6 @@
 {% extends "index.html" %}
 
-{% block content %}
+{% block app_content %}
     <h1>{{_('User')}}: {{ user.username }}</h1>
     <h3>E-mail: {{ user.email }}</h3>
     {% if user == current_user %}
