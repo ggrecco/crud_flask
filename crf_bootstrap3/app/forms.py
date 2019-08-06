@@ -10,7 +10,7 @@ class LoginForm(FlaskForm):
     password = PasswordField('Senha', validators=[DataRequired()],
                              render_kw={"placeholder": "Senha"})
     remember_me = BooleanField('Lembrar')
-    submit = SubmitField('Entrar', render_kw={"class": "testandoCLASS",
+    submit = SubmitField('Entrar', render_kw={"class": "btn btn-primary",
                                               "id": "tetandoID"})
 
 
