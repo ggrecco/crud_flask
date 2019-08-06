@@ -6,12 +6,12 @@ from werkzeug.security import generate_password_hash, check_password_hash
 
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(64), index=True, unique=True)
+    username = db.Column(db.String(75), index=True, unique=True)
     email = db.Column(db.String(120), index=True, unique=True)
-    password_hash = db.Column(db.String(128))
+    password_hash = db.Column(db.String(255))
     last_seen = db.Column(db.DateTime, default=datetime.utcnow)
-    permissions = db.Column(db.String(3))
-    status = db.Column(db.String(10))
+    permissions = db.Column(db.String(75))
+    status = db.Column(db.String(75))
     cosia = db.relationship('Coisa', backref='QualquerCoisa', lazy='dynamic')
 
     def __repr__(self):
@@ -31,10 +31,10 @@ def load_user(id):
 
 class Coisa(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(64))
-    age = db.Column(db.String(5))
-    weight = db.Column(db.String(5))
-    priority = db.Column(db.String(20))
+    name = db.Column(db.String(75))
+    age = db.Column(db.String(75))
+    weight = db.Column(db.String(75))
+    priority = db.Column(db.String(75))
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
     def __repr__(self):

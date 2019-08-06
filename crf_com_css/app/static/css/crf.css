@@ -184,24 +184,17 @@ table {
 }
 
 thead {
-    background: #ccc repeat-x left center;
+    background: #ccc;
 }
 
 th{
-    background: #bbb;
+    /* background: #bbb; */
+    text-align: center;
+    
 }
 
 tr {
     text-align: center;
-}
-
-tr:hover {
-    background-color:#66afe9;
-    /* color: #fff; */
-}
-
-tr:nth-child(even):hover {
-    background-color: #66afe9;
 }
 
 tr:nth-child(even) {

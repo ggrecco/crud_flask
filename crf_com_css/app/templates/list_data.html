@@ -2,14 +2,14 @@
 {% block content %}
 <h1>Cadastrados</h1>
   {% if size != 0 %}
-  <table>
+  <table class="table table-hover">
   <thead>
     <tr>
-      <th>Nome</th>
-      <th>Idade</th>
-      <th>Peso</th>
-      <th>Prioridade</th>
-      <th>Opções</th>
+      <th style="text-align: center">Nome</th>
+      <th style="text-align: center">Idade</th>
+      <th style="text-align: center">Peso</th>
+      <th style="text-align: center">Prioridade</th>
+      <th style="text-align: center">Opções</th>
     </tr>
   </thead>
   {% for coisa in coisas%}
