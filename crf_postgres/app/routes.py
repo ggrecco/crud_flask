@@ -1,9 +1,8 @@
 from flask import render_template, flash, redirect, url_for, request
 from flask_login import current_user, login_user, logout_user, login_required
 from app import app, db
-from app.forms import LoginForm, RegistrationForm, EditProfileForm,\
-                        DeleteForm, EditUserForm, CoisaForm
-from app.models import User, Coisa
+from app.forms import LoginForm
+from app.models import User
 from werkzeug.urls import url_parse
 from datetime import datetime
 from flask import g
@@ -34,7 +33,8 @@ def login():
     form = LoginForm()
     if form.validate_on_submit():
         user = User.query.filter_by(username=form.username.data).first()
-        if user is None or not user.check_password(form.password.data) or user.status != 'active':
+        if user is None or not user.check_password(
+                form.password.data) or user.status != 'active':
             flash(_('Invalid user or password'))
             return redirect(url_for('login'))
         login_user(user, remember=form.remember_me.data)
@@ -57,8 +57,10 @@ def register():
         return redirect(url_for('index'))
     form = RegistrationForm()
     if form.validate_on_submit():
-        user = User(username=form.username.data, email=form.email.data,
-                    permissions='read', status='blocked')
+        user = User(username=form.username.data,
+                    email=form.email.data,
+                    permissions='read',
+                    status='blocked')
         user.set_password(form.password.data)
         db.session.add(user)
         db.session.commit()
@@ -87,7 +89,8 @@ def edit_profile():
     elif request.method == 'GET':
         form.username.data = current_user.username
         form.email.data = current_user.email
-    return render_template('edit_profile.html', title='Edit Profile',
+    return render_template('edit_profile.html',
+                           title='Edit Profile',
                            form=form)
 
 
@@ -110,8 +113,10 @@ def delete_myuser(myuser):
         db.session.commit()
         flash('Usuário excluido com sucesso.')
         return redirect(url_for('logout'))
-    return render_template('delete_myuser.html', title='Excluir perfil',
-                           form=form, user=myuser)
+    return render_template('delete_myuser.html',
+                           title='Excluir perfil',
+                           form=form,
+                           user=myuser)
 
 
 @app.route("/admin", methods=['GET', 'POST'])
@@ -122,8 +127,7 @@ def admin():
     if user[0].permissions != 'admin':
         return redirect(url_for('index'))
     user = User.query.all()
-    return render_template('list_users.html', title='Usuarios',
-                           users=user)
+    return render_template('list_users.html', title='Usuarios', users=user)
 
 
 @app.route("/edit_user/<user>", methods=['GET', 'POST'])
@@ -157,15 +161,18 @@ def create():
         form = CoisaForm()
         if form.validate_on_submit():
             u = int(current_user.id)
-            coisa = Coisa(name=form.name.data, age=form.age.data,
-                          weight=form.weight.data, priority=form.priority.data,
+            coisa = Coisa(name=form.name.data,
+                          age=form.age.data,
+                          weight=form.weight.data,
+                          priority=form.priority.data,
                           user_id=u)
             db.session.add(coisa)
             db.session.commit()
             flash('Cadastro realizado com sucesso')
             return redirect(url_for('create'))
         return render_template('create.html',
-                               title='qualquer coisa', form=form)
+                               title='qualquer coisa',
+                               form=form)
     else:
         return render_template('404.html')
 
@@ -185,7 +192,8 @@ def read():
 @login_required
 def update(name, cid):
     if current_user.permissions == 'update' or 'crud':
-        coisa = Coisa.query.filter_by(id=cid, name=name,
+        coisa = Coisa.query.filter_by(id=cid,
+                                      name=name,
                                       user_id=current_user.id).first()
         form = CoisaForm()
         if form.validate_on_submit():
@@ -206,8 +214,7 @@ def update(name, cid):
             form.age.data = coisa.age
             form.weight.data = coisa.weight
             form.priority.data = coisa.priority
-        return render_template('edit_data.html', coisas=coisa,
-                               form=form)
+        return render_template('edit_data.html', coisas=coisa, form=form)
     return redirect(url_for('read'))
 
 
@@ -216,12 +223,12 @@ def update(name, cid):
 def delete(cid, name):
     if current_user.permissions == 'delete' or 'crud':
         form = DeleteForm()
-        coisa = Coisa.query.filter_by(id=cid, name=name,
+        coisa = Coisa.query.filter_by(id=cid,
+                                      name=name,
                                       user_id=current_user.id).first_or_404()
         if form.validate_on_submit():
             db.session.delete(coisa)
             db.session.commit()
             flash('{} Excluido.'.format(name))
             return redirect(url_for('read'))
-        return render_template('delete_date.html', form=form,
-                               coisas=coisa)
+        return render_template('delete_date.html', form=form, coisas=coisa)

@@ -2,7 +2,7 @@ from flask import render_template, flash, redirect, url_for, request
 from flask_login import current_user, login_user, logout_user, login_required
 from app import app, db
 from app.forms import LoginForm
-from app.models import Banco
+from app.models import User
 from werkzeug.urls import url_parse
 from datetime import datetime
 from flask import g
@@ -32,11 +32,11 @@ def login():
         return redirect(url_for('index'))
     form = LoginForm()
     if form.validate_on_submit():
-        user = Banco.login(nome=form.username.data, senha=form.password.data)
-        print(user)
+        user = User.query.filter_by(esse_nome=form.username.data).first()
         if user is None:
             flash(_('Invalid user or password'))
             return redirect(url_for('login'))
+        login_user(user, remember=form.remember_me.data)
         next_page = request.args.get('next')
         if not next_page or url_parse(next_page).netloc != '':
             next_page = url_for('index')
