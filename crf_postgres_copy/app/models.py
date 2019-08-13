@@ -20,8 +20,12 @@ class User(UserMixin, db.Model):
         self.senha = generate_password_hash(senha)
 
     def check_password(self, senha):
+        teste1 = md5(self.senha.lower().encode('utf-8')).hexdigest()
+        teste = check_password_hash(self.senha, senha)
         print(senha)
-        return check_password_hash(self.senha, senha)
+        print(teste)
+        print(teste1)
+        return 'ok'
 
 
 @login.user_loader

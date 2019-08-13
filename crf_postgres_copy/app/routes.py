@@ -33,7 +33,8 @@ def login():
     form = LoginForm()
     if form.validate_on_submit():
         user = User.query.filter_by(esse_nome=form.username.data).first()
-        if user is None:
+        print(user.senha)
+        if user is None or user.senha != form.password.data:
             flash(_('Invalid user or password'))
             return redirect(url_for('login'))
         login_user(user, remember=form.remember_me.data)
