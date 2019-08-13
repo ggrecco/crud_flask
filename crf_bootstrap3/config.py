@@ -1,9 +1,7 @@
-import os
-basedir = os.path.abspath(os.path.dirname(__file__))
+verde
+#5cb85c
+#449d44 hover
+#398439 active
 
-
-class Config(object):
-    SECRET_KEY = 'you-shall-not-pass'
-    SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir, 'app.db')
-    SQLALCHEMY_TRACK_MODIFICATIONS = False
-    LANGUAGES = ['en', 'pt']
+border
+#4cae4c
